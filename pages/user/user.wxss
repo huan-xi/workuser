@@ -1,0 +1,52 @@
+/* pages/user/user.wxss */
+.type{
+  margin-top: 50rpx;
+}
+ .title{
+  text-align: center;
+}
+.list{
+  padding:25rpx 0;
+  
+}
+.select{
+  border: solid 1rpx #1296db !important;
+  color: #1296db !important;
+}
+.list view{
+  float: left;
+  border: solid 1rpx black;
+  padding: 15rpx 50rpx;
+  margin: 10rpx;
+  font-size: 25rpx;
+  color: black;
+  border-radius: 25rpx;
+}
+.list:after {
+  content: ".";
+  display: block;
+  height: 0;
+  clear: both;
+  visibility: hidden;
+}
+.info{
+  padding: 0 50rpx;
+}
+.idCard image{
+  width: 200rpx;
+  height: 330rpx;
+}
+.btn{
+  background-color: #1296db;
+}
+.info button{
+  margin-top: 100rpx;
+}
+.notype{
+  padding: 15rpx 200rpx !important;
+  margin-left: 40rpx !important;
+}
+.group{
+  margin-top: 50rpx;
+  font-size: 35rpx;
+}

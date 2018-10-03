@@ -1,0 +1,170 @@
+<view class='job'>
+  <!--<view class='header'>
+    <view bindtap='positionTap'>
+      <text class="{{isPosition?'active':''}}">职位详情</text>
+    </view>
+    <view bindtap='companyTap'>
+      <text class="{{isPosition?'':'active'}}">公司详情</text>
+    </view>
+  </view>-->
+  <view wx:if="{{isPosition}}" class='jobDetail'>
+    <!--职位信息-->
+    <view class="jobInfo">
+      <view class='title'>
+        <view>{{positionInfo.type}}</view>
+        <text class='salary'>{{positionInfo.salary>=0?positionInfo.salary+positionInfo.salaryType:'见描述'}}</text>
+      </view>
+      <view class='otherInfo'>
+        <view>
+          <text>工作时间: {{positionInfo.time}}</text>
+        </view>
+        <view>
+          <text>招工人数: {{positionInfo.hCount}}/{{positionInfo.count}} 人</text>
+        </view>
+      </view>
+
+      <!--<ul class='tags'>
+        <li class='tag'>工种1</li>
+        <li class='tag'>工种2</li>
+        <li class='tag'>工种3</li>
+        <li class='tag'>工种4</li>
+        <li class='tag'>工种5</li>
+        <li class='tag'>工种6</li>
+      </ul>-->
+    </view>
+    <!--职位描述-->
+    <view class='clear'></view>
+    <view class='desc'>
+      <view class='descTitle'>职位描述</view>
+      <view class='descContex'>
+       {{positionInfo.positionDesc}}
+      </view>
+    </view>
+    <view class='descTitle'>视频描述</view>
+
+    <video src="{{positionInfo.videoSrc}}" class="video"></video>
+    <view class='descTitle'>公司评价</view>
+    <view class='common'>
+      <view class='commonItem'>
+        <view class='commonHeader'>
+          <image src='../../images/smile.png'></image>
+          <text>好评</text>
+        </view>
+        <view class='tags'>
+          <view>礼貌热情</view>
+          <view>仪表整洁</view>
+          <view>仪表整洁</view>
+          <view>仪表整洁</view>
+          <view>仪表整洁</view>
+        </view>
+      </view>
+      <view class='commonItem'>
+        <view class='commonHeader'>
+          <image src='../../images/meh.png'></image>
+          <text>差评</text>
+        </view>
+        <view class='tags'>
+          <view>礼貌热情</view>
+          <view>仪表整洁</view>
+          <view>仪表整洁</view>
+          <view>仪表整洁</view>
+          <view>仪表整洁</view>
+        </view>
+      </view>
+      <view class='commonItem'>
+        <view class='commonHeader'>
+          <image src='../../images/frown.png'></image>
+          <text>中评</text>
+        </view>
+        <view class='tags'>
+          <view>礼貌热情</view>
+          <view>仪表整洁</view>
+          <view>仪表整洁</view>
+          <view>仪表整洁</view>
+          <view>仪表整洁</view>
+        </view>
+      </view>
+    </view>
+    <view class='foot'>
+      <button>到这里去</button>
+      <button>联系他们</button>
+      <button bindtap='doOrder'>我要接单</button>
+    </view>
+  </view>
+  <view wx:else="{{isPosition}}" class='jobDetail'>
+    <view class='companyName'>
+      廊坊市正通有限公司
+    </view>
+    <view class='CompanyInfo'>
+      <view class='iconText'>
+        <view class='iocnView'>
+          <image src='/images/position.png'></image>
+        </view>
+        公司详细地址
+      </view>
+      <view class='iconText'>
+        <view class='iocnView'>
+          <image src='/images/usercount.png'></image>
+        </view>
+        1000-200人
+      </view>
+    </view>
+    <!--图片轮播-->
+    <view class='lunbo'>
+      <swiper indicator-dots="{{indicatorDots}}" autoplay="{{autoplay}}" interval="{{interval}}" duration="{{duration}}">
+        <block wx:for="{{imgUrls}}" wx:key="unique">
+          <swiper-item>
+            <image src="{{item}}" class="slide-image" />
+          </swiper-item>
+        </block>
+      </swiper>
+    </view>
+    <view class='descTitle'>公司描述</view>
+    <view class='descContex'>
+      1 具有一定的教学经验和扎实的专业知识。 2 普通话标准,可带动课堂气氛和学生学习的积极性。 3 热爱教育事业,有较强的事业心责任感,有良好的师德,善表达,具有团队精神。 4 有学校教育教学经验或课外辅导机构教学经验者优先。 5 能针对每一个学生情况制定出一套有效的学习方案。
+    </view>
+    <view class='descTitle'>公司评价</view>
+    <view class='common'>
+      <view class='commonItem'>
+        <view class='commonHeader'>
+          <image src='../../images/smile.png'></image>
+          <text>好评</text>
+        </view>
+        <view class='tags'>
+          <view>礼貌热情</view>
+          <view>仪表整洁</view>
+          <view>仪表整洁</view>
+          <view>仪表整洁</view>
+          <view>仪表整洁</view>
+        </view>
+      </view>
+      <view class='commonItem'>
+        <view class='commonHeader'>
+          <image src='../../images/meh.png'></image>
+          <text>差评</text>
+        </view>
+        <view class='tags'>
+          <view>礼貌热情</view>
+          <view>仪表整洁</view>
+          <view>仪表整洁</view>
+          <view>仪表整洁</view>
+          <view>仪表整洁</view>
+        </view>
+      </view>
+      <view class='commonItem'>
+        <view class='commonHeader'>
+          <image src='../../images/frown.png'></image>
+          <text>中评</text>
+        </view>
+        <view class='tags'>
+          <view>礼貌热情</view>
+          <view>仪表整洁</view>
+          <view>仪表整洁</view>
+          <view>仪表整洁</view>
+          <view>仪表整洁</view>
+        </view>
+      </view>
+    </view>
+  </view>
+
+</view>

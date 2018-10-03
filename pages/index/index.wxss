@@ -1,0 +1,50 @@
+page{
+  background-color:  rgba(215, 215, 215, 0.2);
+}
+.index .header{
+  background-color: #1296db;
+  padding-top: 20rpx;
+  padding-bottom: 20rpx;
+}
+.search{
+  margin-left: 40rpx;
+  margin-right: 40rpx;
+  height: 60rpx;
+  background-color: white;
+  border-radius: 60rpx;
+  padding-left: 70rpx;
+  font-size: 30rpx;
+}
+.search-view{
+  position: relative;
+}
+.hidden{
+  display: none;
+}
+.icon-search{
+  position: absolute;
+  left: 55rpx;
+  top: 23%;
+}
+.index{
+  min-height: 100%;
+}
+.jobList{
+  padding-bottom: 40rpx;
+}
+.jobBox{
+  margin-top: 20rpx;
+  padding: 20rpx;
+  background-color: white;
+}
+.salary{
+  float: right;
+  margin-right: 0;
+  color: rgb(224, 135, 108);
+}
+.desc{
+  color: gray;
+  display: inline-block;
+  margin-right: 20rpx;
+  font-size: 24rpx;
+}

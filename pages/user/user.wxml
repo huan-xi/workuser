@@ -1,0 +1,32 @@
+<view class='info' wx:if="{{user.userId}}">
+  <view class='type'>
+    <view class='title'>您的工种</view>
+    <view class="list" wx:if="{{types.length>0}}">
+      <view class='select'  wx:key='{{key}}' wx:for="{{types}}" >{{item}}</view>
+    </view>
+    <view class="list" wx:else="">
+      <view class='notype'>你还没选择工种</view>
+    </view>
+  </view>
+  <view class='clear'></view>
+  <view class=''>
+    <view class='title'>您的信息</view>
+    <view class='group'>
+      <text class='label'>手机号：</text>
+      <text class='context'>{{user.phone?user.phone:'未填写'}}</text>
+    </view>
+     <view class='group'>
+      <text class='label'>真实姓名：</text>
+      <text class='context'>{{user.name?user.name:'未填写'}}</text>
+    </view>
+    <view class='idCard group'>
+      <view>
+      身份证信息
+      
+      <text>({{user.valid}})</text></view>
+      <!--<image src='../../images/idCard.png'></image> -->
+     </view>
+      <button bindtap='tosaveTap' class='btn'>编辑信息</button>
+  </view>
+  
+</view>

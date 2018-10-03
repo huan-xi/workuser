@@ -1,0 +1,31 @@
+
+<view class='index'>
+  <view class='header'>
+    <view class='search-view'>
+      <input class='search' placeholder="搜索工种名称" />
+      <icon type='search' size='18' class='icon-search' />
+    </view>
+  </view>
+  
+  <view class='jobList'>
+    <view wx:for="{{positions}}" wx:key="key" wx:for-index="index"      wx:for-item="item" class='jobBox' bindtap="positionTap" id="{{item.positionId}}">
+      <view>
+        <text class='title'>{{item.type}}</text>
+        <text class='salary'>{{item.salary>=0?item.salary+item.salaryType:'见描述'}}</text>
+      </view>
+
+      <view>
+        <text class='desc'>工作时间</text>
+        <text class='desc'>{{item.time}}</text>
+      </view>
+       <view>
+        <text class='desc'>招工人数</text>
+        <text class='desc'>{{item.hCount}}/{{item.count}}人</text>
+      </view>
+      <view>
+      <text class='desc'>公司名称</text>
+        <text class='desc'>{{item.company}}</text>
+      </view>
+    </view>
+  </view>
+</view>
