@@ -77,7 +77,7 @@ padding: 20rpx;
 }
 .foot button{
     float: left;
-    width: 30%;
+    width: 45%;
     margin-left: 20rpx;
     color: #dddddd;
     background: #1296db;

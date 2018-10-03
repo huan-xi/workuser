@@ -4,6 +4,12 @@ module.exports={
   getImageSrc:function(){
     return config.getImageHost
   },
+  //获取公司信息
+  getVenderInfo: function(e){
+    return config.getDomain + `/public/getVenderInfo?id=${e}`
+  },
+  //接单
+  orderPosition: config.getDomain + "/user/orderPosition",
   //修改信息
   editInfo: config.getDomain + "/user/editInfo",
   getInfo: config.getDomain +"/user/getInfo",

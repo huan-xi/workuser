@@ -7,21 +7,22 @@ Page({
    */
   data: {
     isPosition: true,
-    imgUrls: [
-      'http://img06.tooopen.com/images/20160818/tooopen_sy_175866434296.jpg',
-      'http://img06.tooopen.com/images/20160818/tooopen_sy_175866434296.jpg',
-      'http://img06.tooopen.com/images/20160818/tooopen_sy_175833047715.jpg'
-    ],
-    indicatorDots: true,  //是否显示面板指示点
-    autoplay: true,      //是否自动切换
-    interval: 3000,       //自动切换时间间隔
-    duration: 1000,       //滑动动画时长
     inputShowed: false,
     inputVal: "",
     positionInfo:{},
-    src:"https://huanxi-candy.oss-cn-qingdao.aliyuncs.com/image/head_img/df796c19-baf1-4c42-b55c-ea98ac256805.mp4"
+    vender:{
+      address:"正在加载...",
+      addressDesc:"正在加载..."
+    }
   },
-
+  toThere:function(e){
+    var vender=this.data.vender
+    wx.openLocation({
+      latitude: vender.latitude,
+      longitude: vender.longitude,
+      address:vender.addressDesc
+    })
+  },
   /**
    * 生命周期函数--监听页面加载
    */
@@ -32,12 +33,18 @@ Page({
    var that=this;
     wxRequest.get(api.getPosition(options.id),function(e){
       wx.hideLoading();
-      console.log(api.getImageSrc())
+      if (e.msg.videoSrc)
       e.msg.videoSrc = api.getImageSrc()+e.msg.videoSrc
       e.msg.time = util.formatTime(new Date(e.msg.time))
       that.setData({
         positionInfo:e.msg
       })
+      var id=e.msg.venderId;
+      wxRequest.get(api.getVenderInfo(id),e=>{
+        that.setData({
+          vender:e.msg
+        })
+      });
       console.log(that.data.positionInfo)
     });
   },
@@ -52,9 +59,42 @@ Page({
     })
   },
   doOrder:function(e){
+    var id=e.target.id
+    console.log(id)
     wx.showModal({
       title: '提示',
       content: '确定要接此职位？',
+      success:e => {
+        wx.showLoading({
+          title: '正在添加订单',
+        })
+        if(e.confirm){
+          wxRequest.post(api.orderPosition,{id},e =>{
+            wx.hideLoading()
+            if(e.status==1){
+              wx.showModal({
+                title: '提示',
+                content: '接单成功',
+                confirmText:'查看订单',
+                success:e =>{
+                  if(e.confirm)
+                    wx.switchTab({
+                      url: '/pages/order/order',
+                    })
+                }
+              })
+            }else{
+              if(e.msg){
+                wx.showModal({
+                  title: '提示',
+                  content: e.msg,
+                  showCancel:false
+                })
+              }
+            }
+          })
+        }
+      }
     })
   },
 

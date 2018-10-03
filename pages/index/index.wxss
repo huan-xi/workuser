@@ -46,5 +46,8 @@ page{
   color: gray;
   display: inline-block;
   margin-right: 20rpx;
-  font-size: 24rpx;
+  font-size: 27rpx;
+}
+.footBox{
+  border-top: solid 1rpx #1296db;
 }

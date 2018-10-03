@@ -41,7 +41,7 @@
 				{
 					"id": 0,
 					"name": "user",
-					"pathName": "pages/user/user",
+					"pathName": "pages/order/order",
 					"query": ""
 				},
 				{
