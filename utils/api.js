@@ -7,7 +7,7 @@ module.exports={
   //修改信息
   editInfo: config.getDomain + "/user/editInfo",
   getInfo: config.getDomain +"/user/getInfo",
-  //删除图片
+  //上传图片
   uploadIdCard: config.getDomain + "/user/uploadIdCard",
   //登入地址
   login: config.getDomain + "/login",
