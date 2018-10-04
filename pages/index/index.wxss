@@ -51,3 +51,16 @@ page{
 .footBox{
   border-top: solid 1rpx #1296db;
 }
+.showerror {
+  text-align: center;
+  font-weight: normal;
+  font-size: 30rpx;
+  line-height: 40rpx;
+  color: #757575;
+  margin-top: 100rpx;
+}
+
+.errortext {
+  margin-top: 50rpx;
+  table-layout: center;
+}

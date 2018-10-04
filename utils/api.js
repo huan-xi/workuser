@@ -15,6 +15,14 @@ module.exports={
   getInfo: config.getDomain +"/user/getInfo",
   //上传图片
   uploadIdCard: config.getDomain + "/user/uploadIdCard",
+  //取消订单
+  cancelOrder: function(id){
+    return config.getDomain + `/user/cancelOrder?orderId=${id}`
+  },
+  //获取用户所有订单
+  getOrders:function(page,size){
+    return config.getDomain+ `/user/getOrders?page=${page}&size=${size}`
+  },
   //登入地址
   login: config.getDomain + "/login",
   //获取全部职位信息

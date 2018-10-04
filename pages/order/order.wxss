@@ -11,7 +11,7 @@ page{
   margin-top: 20rpx;
   padding: 20rpx;
   background-color: white;
-   height: 230rpx;
+  height: 305rpx;
 }
 .rightBox view{
   float: right;

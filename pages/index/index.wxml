@@ -6,7 +6,12 @@
       <icon type='search' size='18' class='icon-search' />
     </view>
   </view>
-  
+  <view class="showerror" hidden='{{positions.length}}'>
+    <image src="/images/cry80.png" style="height:100rpx;width:100rpx"></image>
+    <view class="errortext">
+        暂时无法访问网络,下拉重试...
+    </view>
+</view>
   <view class='jobList'>
     <view wx:for="{{positions}}" wx:key="key" wx:for-index="index"      wx:for-item="item" class='jobBox' bindtap="positionTap" id="{{item.positionId}}">
       <view>
