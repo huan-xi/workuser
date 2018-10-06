@@ -1,54 +1,49 @@
 var api = require('../../utils/api.js');
 var wxRequest = require('../../utils/wxRequest.js')
 var util = require('../../utils/util.js')
-var page=1
-var size=5
+var page = 1
+var size = 5
 Page({
-
   /**
    * 页面的初始数据
    */
   data: {
-    orders:[]
+    orders: []
   },
-  refresh:function(){
-    var that=this
+  refresh: function() {
+    var that = this
     wx.showLoading({
       title: '正在获取数据',
     })
     wxRequest.get(api.getOrders(page, size), e => {
       wx.hideLoading()
-      if(e.status==1){
+      if (e.status == 1) {
         var orders = e.msg.rows
         //返回状态信息状态过滤
-        for(var i=0;i<orders.length;i++){
-          if(orders[i].status==1){
-            orders[i].notFinish=true
+        for (var i = 0; i < orders.length; i++) {
+          if (orders[i].status == 1) {
+            orders[i].notFinish = true
             orders[i].status = '接单成功，请赶快前往工厂'
-          }
-          else if (orders[i].status==4)
-            {
-            orders[i].cancel=true  
+          } else if (orders[i].status == 4) {
+            orders[i].cancel = true
             orders[i].status = '已取消'
-            }
-          else if (orders[i].status==3)
-            {
+          } else if (orders[i].status == 3) {
             orders[i].notCom = true
             orders[i].status = '已完成'
-            }
+          }
         }
         //放回信息时间过滤
-        for(var i=0;i<orders.length;i++){
+        for (var i = 0; i < orders.length; i++) {
           orders[i].workTime = util.formatTime(new Date(orders[i].workTime))
         }
         that.setData({
-          orders:orders
+          orders: orders
         })
-      }else{
+      } else {
         wx.showModal({
           title: '提示',
           content: '提交异常',
-          showCancel:false
+          showCancel: false
         })
       }
     })
@@ -56,61 +51,60 @@ Page({
   /**
    * 生命周期函数--监听页面加载
    */
-  onLoad: function (options) {
+  onLoad: function(options) {
 
   },
 
-  /**
-   * 生命周期函数--监听页面初次渲染完成
-   */
-  onReady: function () {
-
+  orderTap: function(e) {
+    wx.navigateTo({
+      url: `/pages/getJob/getJob?id=${e.currentTarget.id}`,
+    })
   },
 
   /**
    * 生命周期函数--监听页面显示
    */
-  onShow: function () {
-      this.refresh()
+  onShow: function() {
+    this.refresh()
   },
-  callTap:function(){
+  callTap: function() {
     wx.makePhoneCall({
       phoneNumber: '17680504804',
-      success:e=>{
-        
+      success: e => {
+
       },
-      fail:e=>{
-        
+      fail: e => {
+
       }
     })
   },
-  cancelTap:function(e){
-    var id=e.target.id
-    var that =this
+  cancelTap: function(e) {
+    var id = e.target.id
+    var that = this
     wx.showModal({
       title: '提示',
       content: '每天只能取消一次订单，您确定要取消吗',
-      success:e =>{
-        
-        if(e.confirm){
+      success: e => {
+
+        if (e.confirm) {
           wx.showLoading({
             title: '正在取消订单',
           })
-          wxRequest.get(api.cancelOrder(id),e=>{
+          wxRequest.get(api.cancelOrder(id), e => {
             wx.hideLoading()
-            if(e.status==1){
+            if (e.status == 1) {
               wx.showToast({
                 title: '取消成功',
               })
               that.refresh()
-            }else{
-              if(e.msg)
-              wx.showModal({
-                title: '提示',
-                content: e.msg,
-                showCancel:false
-              })
-              else{
+            } else {
+              if (e.msg)
+                wx.showModal({
+                  title: '提示',
+                  content: e.msg,
+                  showCancel: false
+                })
+              else {
                 wx.showModal({
                   title: '提示',
                   content: '提交异常',
@@ -122,31 +116,99 @@ Page({
       }
     })
   },
-  /**
-   * 生命周期函数--监听页面卸载
-   */
-  onUnload: function () {
+  deleteTap: function(e) {
+    var id = e.target.id
+    var that = this
+    wx.showModal({
+      title: '提示',
+      content: '删除订单后将不会再显示，确定删除吗',
+      success: e => {
+        if (e.confirm) {
+          wx.showLoading({
+            title: '正在删除订单',
+          })
+          wxRequest.get(api.deleteOrder(id), e => {
+            wx.hideLoading()
+            if (e.status == 1) {
+              wx.showToast({
+                title: '删除成功',
+              })
+              that.refresh()
+            } else {
+              if (e.msg)
+                wx.showModal({
+                  title: '提示',
+                  content: e.msg,
+                  showCancel: false
+                })
+              else {
+                wx.showModal({
+                  title: '提示',
+                  content: '提交异常',
+                })
+              }
+            }
+          })
+        }
+      }
+    })
+},
+finishTap: function(e) {
+  var id = e.target.id
+  var that = this
+  wx.showModal({
+    title: '提示',
+    content: '确定此订单已完成吗',
+    success: e => {
+      if (e.confirm) {
+        //提交完成请求
+        wx.showLoading({
+          title: '正在提交请求',
+        })
+        wxRequest.get(api.finishOrder(id), e => {
+          wx.hideLoading()
+          if (e.status == 1) {
+            wx.showToast({
+              title: '订单已完成',
+            })
+            that.refresh()
+          } else {
+            if (e.msg)
+              wx.showModal({
+                title: '提示',
+                content: e.msg,
+                showCancel: false
+              })
+            else {
+              wx.showModal({
+                title: '提示',
+                content: '提交异常',
+              })
+            }
+          }
+        })
+      }
+    }
+  })
+},
+/**
+ * 页面相关事件处理函数--监听用户下拉动作
+ */
+onPullDownRefresh: function() {
 
-  },
+},
 
-  /**
-   * 页面相关事件处理函数--监听用户下拉动作
-   */
-  onPullDownRefresh: function () {
+/**
+ * 页面上拉触底事件的处理函数
+ */
+onReachBottom: function() {
 
-  },
+},
 
-  /**
-   * 页面上拉触底事件的处理函数
-   */
-  onReachBottom: function () {
+/**
+ * 用户点击右上角分享
+ */
+onShareAppMessage: function() {
 
-  },
-
-  /**
-   * 用户点击右上角分享
-   */
-  onShareAppMessage: function () {
-
-  }
+}
 })

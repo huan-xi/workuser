@@ -13,7 +13,24 @@ function postRequest(url,data,s) {
       'Token': getApp().globalData.token
     },
     success:function(e){
-      console.log("拦截返回值")
+      //POST拦截
+      if (e.data.status == 4003) {
+        wx.hideLoading()
+        wx.showModal({
+          title: '提示',
+          content: '你还未登入是否自动登入',
+          confirmText: '去登入',
+          success: function (e) {
+            if (e.confirm) {
+              //登入
+              wx.switchTab({
+                url: '/pages/user/user',
+              })
+            }
+          }
+        })
+        return
+      }
       s(e.data);
     },
     fail:function(e){
@@ -44,6 +61,9 @@ function uploadFile(url,filePath,name,s){
           success: function (e) {
             if (e.confirm) {
               //登入
+              wx.switchTab({
+                url: '/pages/user/user',
+              })
             }
           }
         })
@@ -78,7 +98,9 @@ function getRequest(url,s){
           success:function(e){
             if(e.confirm){
               //登入
-              
+              wx.switchTab({
+                url: '/pages/user/user',
+              })
             }
           }
         })

@@ -8,6 +8,7 @@ module.exports={
   getVenderInfo: function(e){
     return config.getDomain + `/public/getVenderInfo?id=${e}`
   },
+
   //接单
   orderPosition: config.getDomain + "/user/orderPosition",
   //修改信息
@@ -18,6 +19,14 @@ module.exports={
   //取消订单
   cancelOrder: function(id){
     return config.getDomain + `/user/cancelOrder?orderId=${id}`
+  },
+  //删除订单
+  deleteOrder: function (id) {
+    return config.getDomain + `/user/deleteOrder?orderId=${id}`
+  },
+  //完成订单
+  finishOrder: function (id) {
+    return config.getDomain + `/user/finishOrder?orderId=${id}`
   },
   //获取用户所有订单
   getOrders:function(page,size){
