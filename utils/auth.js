@@ -45,7 +45,7 @@ module.exports = {
           }else{
             wx.showModal({
               title: '提示',
-              content: '登入失败请重试',
+              content: e.msg,
               showCancel:false,
               success:e=>{
                 wx, wx.switchTab({

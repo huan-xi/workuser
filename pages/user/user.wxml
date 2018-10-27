@@ -1,32 +1,37 @@
-<view class='info' wx:if="{{user.userId}}">
-  <view class='type'>
-    <view class='title'>您的工种</view>
-    <view class="list" wx:if="{{types.length>0}}">
-      <view class='select'  wx:key='{{key}}' wx:for="{{types}}" >{{item}}</view>
-    </view>
-    <view class="list" wx:else="">
-      <view class='notype'>你还没选择工种</view>
-    </view>
-  </view>
-  <view class='clear'></view>
-  <view class=''>
-    <view class='title'>您的信息</view>
-    <view class='group'>
-      <text class='label'>手机号：</text>
-      <text class='context'>{{user.phone?user.phone:'未填写'}}</text>
-    </view>
-     <view class='group'>
-      <text class='label'>真实姓名：</text>
-      <text class='context'>{{user.name?user.name:'未填写'}}</text>
-    </view>
-    <view class='idCard group'>
+<view class='info' bindtap='toEdit'>
+  <i-card class="card-demo" title="{{user.name?user.name:'真实姓名'}}" extra="{{user.valid}}">
+    <view slot="content">
       <view>
-      身份证信息
-      
-      <text>({{user.valid}})</text></view>
-      <!--<image src='../../images/idCard.png'></image> -->
-     </view>
-      <button bindtap='tosaveTap' class='btn'>编辑信息</button>
-  </view>
-  
+        <i-icon type="mobilephone" size='18' />
+        <text>{{user.phone?user.phone:'联系人电话'}}</text>
+      </view>
+    </view>
+    <view slot="footer">
+      <view>您的工种:</view>
+      <i-tag class="i-tags" type="border" color="blue" wx:key='{{key}}' wx:for="{{types}}">{{item}}
+      </i-tag>
+      <view hidden="{{types.length>0}}">
+        <i-tag>你还没选择工种</i-tag>
+      </view>
+    </view>
+  </i-card>
+</view>
+<i-panel>
+  <i-cell-group>
+    <i-cell title="编辑信息" is-link url="/pages/editUser/editUser">
+      <i-icon type="brush" size='25' slot="icon" />
+    </i-cell>
+    <i-cell title="客服与反馈" is-link  url="/pages/feedback/feedback">
+      <i-icon type="document" size='25' slot="icon" />
+    </i-cell>
+    <i-cell title="清除缓存"  bind:click="clear">
+      <i-icon type="trash" size='25' slot="icon" />
+    </i-cell>
+    <i-cell title="退出登入" bind:click="logout">
+      <i-icon type="enterinto" size='25' slot="icon" />
+    </i-cell>
+  </i-cell-group>
+</i-panel>
+<view hidden='{{user.userId.length>0}}'>
+  <abnor type="DATA" title="获取信息失败,下拉试试"></abnor>
 </view>

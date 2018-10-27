@@ -1,1 +1,14 @@
-{}
+{
+        "navigationBarTitleText": "我的信息",
+        "navigationBarTextStyle": "black",
+        "enablePullDownRefresh": true,
+        "usingComponents": {
+          "i-cell-group": "/component/cell-group/index",
+          "i-cell": "/component/cell/index",
+          "i-panel": "/component/panel/index",
+          "abnor": "/component/abnor/index",
+          "i-icon": "/component/icon/index",
+          "i-card": "/component/card/index",
+          "i-tag": "/component/tag/index"
+        }
+}

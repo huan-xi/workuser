@@ -1,29 +1,19 @@
-<view class='info'>
-  <view class='type'>
-    <view class='title'>请选择您的的工种</view>
-    <view class="list" >
-      <view  wx:for="{{types}}" wx:key="key"  bindtap='typeTap' data-id='{{types[index].typeId}}' class="{{types[index].state?'select':''}}">{{types[index].typeName}}</view>
-    </view>
+<i-panel title="选择您的工种">
+  <view class="list">
+    <view wx:for="{{types}}" wx:key="key" bindtap='typeTap' data-id='{{types[index].typeId}}' class="{{types[index].state?'select':''}}">{{types[index].typeName}}</view>
   </view>
-  <view class='infoDtaile'>
-  <form bindsubmit="formSubmit">
-    <view class='title'>您的信息</view>
-    <view class='group'>
-      <text class='label'>手机号：</text>
-      <input name='phone' value='{{user.phone}}' placeholder='请输入手机号'></input>
-    </view>
-     <view class='group'>
-      <text class='label'>真实姓名：</text>
-      <input name='name' value='{{user.phone}}' placeholder='请输入真实姓名'></input>
-    </view>
-    <view class='idCard'>
-      <view>
-      身份证信息
-      <text>({{user.valid}})</text></view>
-      <image bindtap='imageTap' src='{{imageSrc}}'></image>
-     </view>
-      <button formType="submit" class='btn'>保存信息</button>
-      </form>
+</i-panel>
+<i-panel title="修改您的信息">
+  <i-cell-group>
+    <i-input value="{{ user.name }}" bind:change='nameInputChange' title="真实姓名" placeholder="请输入真实姓名" />
+    <i-input value="{{ user.phone }}" type="number" bind:change='phoneInputChange' title="联系电话" placeholder="请输入手机号" />
+  </i-cell-group>
+</i-panel>
+<i-panel title="上传身份证正面信息(可不填)">
+  <view class='idCard'>
+    <image class="idCard" bindtap='imageTap' src='{{imageSrc}}'></image>
   </view>
-  
+</i-panel>
+<view class='sava'>
+  <i-button bind:click="formSubmit" type="primary" shape="circle">保存信息</i-button>
 </view>

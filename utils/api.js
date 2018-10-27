@@ -8,7 +8,6 @@ module.exports={
   getVenderInfo: function(e){
     return config.getDomain + `/public/getVenderInfo?id=${e}`
   },
-
   //接单
   orderPosition: config.getDomain + "/user/orderPosition",
   //修改信息
@@ -44,5 +43,12 @@ module.exports={
   getPosition: function (id) {
     return config.getDomain + `/public/getPosition?id=${id}`
   },
-
+  //搜索
+  search: function (page, size,key) {
+    return config.getDomain + `/public/search?page=${page}&size=${size}&key=${key}`
+  },
+  //提交反馈信息
+  feedback: config.getDomain + "/public/feedback",
+  //获取客服信息
+  getServiceInfo: config.getDomain + "/public/getServiceInfo"
 }

@@ -34,53 +34,9 @@
       <view class='descTitle'>视频描述</view>
       <video src="{{positionInfo.videoSrc}}" class="video"></video>
     </view>
-    <view class='descTitle'>公司评价</view>
-    <view class='common'>
-      <view class='commonItem'>
-        <view class='commonHeader'>
-          <image src='../../images/smile.png'></image>
-          <text>好评</text>
-        </view>
-        <view class='tags'>
-          <view>礼貌热情</view>
-          <view>仪表整洁</view>
-          <view>仪表整洁</view>
-          <view>仪表整洁</view>
-          <view>仪表整洁</view>
-        </view>
-      </view>
-      <view class='commonItem'>
-        <view class='commonHeader'>
-          <image src='../../images/meh.png'></image>
-          <text>差评</text>
-        </view>
-        <view class='tags'>
-          <view>礼貌热情</view>
-          <view>仪表整洁</view>
-          <view>仪表整洁</view>
-          <view>仪表整洁</view>
-          <view>仪表整洁</view>
-        </view>
-      </view>
-      <view class='commonItem'>
-        <view class='commonHeader'>
-          <image src='../../images/frown.png'></image>
-          <text>中评</text>
-        </view>
-        <view class='tags'>
-          <view>礼貌热情</view>
-          <view>仪表整洁</view>
-          <view>仪表整洁</view>
-          <view>仪表整洁</view>
-          <view>仪表整洁</view>
-        </view>
-      </view>
-    </view>
     <view class='foot'>
-      <button bindtap='toThere'>到这里去</button>
-      <button id='{{positionInfo.positionId}}' bindtap='doOrder'>我要接单</button>
-    </view>
+      <button class="{{isOrder?'btn-full':''}}" bindtap='toThere'>到这里去</button>
+      <button hidden='{{isOrder}}' id='{{positionInfo.positionId}}' bindtap='doOrder'>我要接单</button>
+    </view>  
   </view>
-  
-
 </view>

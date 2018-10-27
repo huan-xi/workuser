@@ -3,46 +3,62 @@ var wxRequest = require('../../utils/wxRequest.js')
 var util = require('../../utils/util.js')
 var page = 1
 var size = 5
+var total = 0
 Page({
   /**
    * 页面的初始数据
    */
   data: {
-    orders: []
+    orders: [],
+    isLoading: false,
+    tip: ""
   },
-  refresh: function() {
+  refresh: function(isPull) {
     var that = this
-    wx.showLoading({
-      title: '正在获取数据',
-    })
     wxRequest.get(api.getOrders(page, size), e => {
-      wx.hideLoading()
+      if(isPull)
+        wx.stopPullDownRefresh()
       if (e.status == 1) {
         var orders = e.msg.rows
+        total=e.msg.total
         //返回状态信息状态过滤
         for (var i = 0; i < orders.length; i++) {
-          if (orders[i].status == 1) {
-            orders[i].notFinish = true
-            orders[i].status = '接单成功，请赶快前往工厂'
-          } else if (orders[i].status == 4) {
-            orders[i].cancel = true
-            orders[i].status = '已取消'
-          } else if (orders[i].status == 3) {
-            orders[i].notCom = true
-            orders[i].status = '已完成'
+          switch (orders[i].pOrder.status){
+            case '1':
+              orders[i].notFinish = true
+              orders[i].pOrder.status = '接单成功，请赶快前往工厂'
+              break
+            case '4':
+              orders[i].cancel = true
+              orders[i].pOrder.status = '您已取消'
+              break
+            case '3':
+              orders[i].notCom = true
+              orders[i].pOrder.status = '已完成'
+              break
+            case '6':
+              orders[i].notCom = true
+              orders[i].pOrder.status = '已结束'
+              break
+            case '8':
+              orders[i].pOrder.status = '工厂已取消'
+              break
           }
         }
         //放回信息时间过滤
         for (var i = 0; i < orders.length; i++) {
-          orders[i].workTime = util.formatTime(new Date(orders[i].workTime))
+          orders[i].position.time = util.formatTime(new Date(orders[i].position.time))
         }
+        orders = that.data.orders.concat(orders)
         that.setData({
+          tip: '没有更多数据了',
+          isLoading: false,
           orders: orders
         })
       } else {
         wx.showModal({
           title: '提示',
-          content: '提交异常',
+          content: e.msg,
           showCancel: false
         })
       }
@@ -54,10 +70,14 @@ Page({
   onLoad: function(options) {
 
   },
-
+  onPullDownRefresh: function () {
+    page = 1
+    this.data.orders = []
+    this.refresh(true)
+  },
   orderTap: function(e) {
     wx.navigateTo({
-      url: `/pages/getJob/getJob?id=${e.currentTarget.id}`,
+      url: `/pages/getJob/getJob?id=${e.currentTarget.id}&&isOrder=1`,
     })
   },
 
@@ -65,17 +85,13 @@ Page({
    * 生命周期函数--监听页面显示
    */
   onShow: function() {
+    page = 1
+    this.data.orders = []
     this.refresh()
   },
-  callTap: function() {
+  callTap: function(e) {
     wx.makePhoneCall({
-      phoneNumber: '17680504804',
-      success: e => {
-
-      },
-      fail: e => {
-
-      }
+      phoneNumber: e.currentTarget.id
     })
   },
   cancelTap: function(e) {
@@ -96,6 +112,8 @@ Page({
               wx.showToast({
                 title: '取消成功',
               })
+              page = 1
+              this.data.orders = []
               that.refresh()
             } else {
               if (e.msg)
@@ -133,6 +151,8 @@ Page({
               wx.showToast({
                 title: '删除成功',
               })
+              page = 1
+              this.data.orders = []
               that.refresh()
             } else {
               if (e.msg)
@@ -171,6 +191,8 @@ finishTap: function(e) {
             wx.showToast({
               title: '订单已完成',
             })
+            page = 1
+            this.data.orders = []
             that.refresh()
           } else {
             if (e.msg)
@@ -191,24 +213,15 @@ finishTap: function(e) {
     }
   })
 },
-/**
- * 页面相关事件处理函数--监听用户下拉动作
- */
-onPullDownRefresh: function() {
-
-},
 
 /**
  * 页面上拉触底事件的处理函数
  */
 onReachBottom: function() {
-
+  var that = this
+  if (total % size == 0 && page >= total / size) return
+  if (page > total / size) return
+  page++
+  this.refresh()
 },
-
-/**
- * 用户点击右上角分享
- */
-onShareAppMessage: function() {
-
-}
 })

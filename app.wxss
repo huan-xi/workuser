@@ -1,3 +1,6 @@
+page{
+  background-color: #f8f8f9
+}
 .btn{
   background-color: #1296db;
 }

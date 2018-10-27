@@ -20,20 +20,22 @@ Page({
   tosaveTap: function(e) {
     wx.navigateTo({
       url: '/pages/editUser/editUser',
-      success:e=>{
-        console.log(e)
-      }
     })
   },
-  refresh:function(){
+  retryTap:function(e){
+    this.refresh()
+  },
+  refresh:function(isPull=false){
+    if(!isPull)
     wx.showLoading({
       title: '正在获取信息',
     })
     wxRequest.get(api.getInfo, e => {
+      if(isPull)
+      wx.stopPullDownRefresh()
       wx.hideLoading()
       if(e.status==1){
         var user = e.msg
-        console.log(user)
         var types = []
         if (user.type&&user.type.length > 0)
           types = types.concat(user.type.split('|'))
@@ -61,6 +63,46 @@ Page({
       }
     })
   },
+  clear: function (e) {
+    var that = this
+    wx.showModal({
+      title: '提示',
+      content: '清除缓存将会退出登入，确定要清除吗？',
+      success: e => {
+        if (e.confirm)
+          that.exit()
+      }
+    })
+  },
+  exit: function (e) {
+    wx.switchTab({
+      url: '/pages/index/index',
+    })
+    getApp().globalData.token = ''
+    wx.clearStorageSync()
+  },
+  logout: function (e) {
+    var that = this
+    wx.showModal({
+      title: '提示',
+      content: '确定要退出吗？',
+      success: e => {
+        if (e.confirm)
+          that.exit()
+      }
+    })
+  },
+  toEdit: function (e) {
+    wx.navigateTo({
+      url: '/pages/editUser/editUser',
+    })
+  },
+  /**
+   * 页面相关事件处理函数--监听用户下拉动作
+   */
+  onPullDownRefresh: function () {
+    this.refresh(true)
+  },
   /**
    * 生命周期函数--监听页面显示
    */
@@ -81,4 +123,5 @@ Page({
       },
     })
   },
+  
 })

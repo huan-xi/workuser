@@ -34,9 +34,17 @@ Page({
           var typesD = e.msg
           var types = []
           var state = 0;
+          //分割数组
+          if (userType && userType.length>0)
+          userType= userType.split("|")
           for (var i = 0; i < typesD.length; i++) {
+            state=0
             if(userType)
-            if (userType.search(typesD[i].sValue) != -1) state = 1;
+              for(var j=0;j<userType.length;j++){
+                //判断i是否在user中
+                if (userType[j] == typesD[i].sValue)
+                  state=1
+              }
             types.push({
               typeId: typesD[i].systemId,
               state: state,
@@ -71,18 +79,42 @@ Page({
       types: types
     })
   },
-  /**
-   * 生命周期函数--监听页面显示
-   */
-  onShow: function() {
-
+  //双向绑定
+  nameInputChange: function (e) {
+    var user = this.data.user
+    user.name = e.detail.detail.value
+    this.setData({
+      user
+    })
   },
-
+  phoneInputChange: function (e) {
+    var user = this.data.user
+    user.phone = e.detail.detail.value
+    this.setData({
+      user
+    })
+  },
   submit: function(val) {
+    if (val.name.length < 1) {
+      wx.showModal({
+        title: '提示',
+        content: '请认真填写真实姓名',
+        showCancel: false
+      })
+      return
+    }
+    if(val.phone.length!=11){
+      wx.showModal({
+        title: '提示',
+        content: '请输入正确手机号',
+        showCancel:false
+      })
+      return
+    }
+    
     wx.showLoading({
       title: '正在修改数据',
     })
-    console.log(val)
     var types =[]
     for(var i=0;i<this.data.types.length;i++){
       if (this.data.types[i].state==1)
@@ -124,8 +156,7 @@ Page({
     })
   },
   formSubmit: function(e) {
-    console.log(e)
-    var val=e.detail.value
+    var val = this.data.user
     var that=this
     var imagesrc = this.data.imageSrc[0]
     if(imagesrc.search("//tmp")!=-1){

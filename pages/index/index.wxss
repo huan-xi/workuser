@@ -1,12 +1,10 @@
-page{
-  background-color:  rgba(215, 215, 215, 0.2);
-}
-.index .header{
+.index .header {
   background-color: #1296db;
   padding-top: 20rpx;
   padding-bottom: 20rpx;
 }
-.search{
+
+.search {
   margin-left: 40rpx;
   margin-right: 40rpx;
   height: 60rpx;
@@ -15,52 +13,50 @@ page{
   padding-left: 70rpx;
   font-size: 30rpx;
 }
-.search-view{
+
+.search-view {
   position: relative;
 }
-.hidden{
+
+.hidden {
   display: none;
 }
-.icon-search{
+
+.icon-search {
   position: absolute;
   left: 55rpx;
   top: 23%;
 }
-.index{
+
+.index {
   min-height: 100%;
 }
-.jobList{
+
+.jobList {
   padding-bottom: 40rpx;
 }
-.jobBox{
+
+.jobBox {
   margin-top: 20rpx;
   padding: 20rpx;
   background-color: white;
+  border: 1rpx solid #dddee1;
+  border-radius: 5px;
 }
-.salary{
+
+.salary {
   float: right;
   margin-right: 0;
   color: rgb(224, 135, 108);
 }
-.desc{
+
+.desc {
   color: gray;
   display: inline-block;
   margin-right: 20rpx;
   font-size: 27rpx;
 }
-.footBox{
-  border-top: solid 1rpx #1296db;
-}
-.showerror {
-  text-align: center;
-  font-weight: normal;
-  font-size: 30rpx;
-  line-height: 40rpx;
-  color: #757575;
-  margin-top: 100rpx;
-}
 
-.errortext {
-  margin-top: 50rpx;
-  table-layout: center;
+.footBox {
+  border-top: solid 1rpx #1296db;
 }
