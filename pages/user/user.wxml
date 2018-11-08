@@ -32,6 +32,3 @@
     </i-cell>
   </i-cell-group>
 </i-panel>
-<view hidden='{{user.userId.length>0}}'>
-  <abnor type="DATA" title="获取信息失败,下拉试试"></abnor>
-</view>

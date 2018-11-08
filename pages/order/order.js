@@ -16,14 +16,14 @@ Page({
   refresh: function(isPull) {
     var that = this
     wxRequest.get(api.getOrders(page, size), e => {
-      if(isPull)
+      if (isPull)
         wx.stopPullDownRefresh()
       if (e.status == 1) {
         var orders = e.msg.rows
-        total=e.msg.total
+        total = e.msg.total
         //返回状态信息状态过滤
         for (var i = 0; i < orders.length; i++) {
-          switch (orders[i].pOrder.status){
+          switch (orders[i].pOrder.status) {
             case '1':
               orders[i].notFinish = true
               orders[i].pOrder.status = '接单成功，请赶快前往工厂'
@@ -70,7 +70,7 @@ Page({
   onLoad: function(options) {
 
   },
-  onPullDownRefresh: function () {
+  onPullDownRefresh: function() {
     page = 1
     this.data.orders = []
     this.refresh(true)
@@ -172,56 +172,56 @@ Page({
         }
       }
     })
-},
-finishTap: function(e) {
-  var id = e.target.id
-  var that = this
-  wx.showModal({
-    title: '提示',
-    content: '确定此订单已完成吗',
-    success: e => {
-      if (e.confirm) {
-        //提交完成请求
-        wx.showLoading({
-          title: '正在提交请求',
-        })
-        wxRequest.get(api.finishOrder(id), e => {
-          wx.hideLoading()
-          if (e.status == 1) {
-            wx.showToast({
-              title: '订单已完成',
-            })
-            page = 1
-            this.data.orders = []
-            that.refresh()
-          } else {
-            if (e.msg)
-              wx.showModal({
-                title: '提示',
-                content: e.msg,
-                showCancel: false
+  },
+  finishTap: function(e) {
+    var id = e.target.id
+    var that = this
+    wx.showModal({
+      title: '提示',
+      content: '确定此订单已完成吗',
+      success: e => {
+        if (e.confirm) {
+          //提交完成请求
+          wx.showLoading({
+            title: '正在提交请求',
+          })
+          wxRequest.get(api.finishOrder(id), e => {
+            wx.hideLoading()
+            if (e.status == 1) {
+              wx.showToast({
+                title: '订单已完成',
               })
-            else {
-              wx.showModal({
-                title: '提示',
-                content: '提交异常',
-              })
+              page = 1
+              this.data.orders = []
+              that.refresh()
+            } else {
+              if (e.msg)
+                wx.showModal({
+                  title: '提示',
+                  content: e.msg,
+                  showCancel: false
+                })
+              else {
+                wx.showModal({
+                  title: '提示',
+                  content: '提交异常',
+                })
+              }
             }
-          }
-        })
+          })
+        }
       }
-    }
-  })
-},
+    })
+  },
 
-/**
- * 页面上拉触底事件的处理函数
- */
-onReachBottom: function() {
-  var that = this
-  if (total % size == 0 && page >= total / size) return
-  if (page > total / size) return
-  page++
-  this.refresh()
-},
+  /**
+   * 页面上拉触底事件的处理函数
+   */
+  onReachBottom: function() {
+    var that = this
+    if (total % size == 0 && page >= total / size) return
+    if (page > total / size) return
+    page++
+    this.refresh()
+  },
 })

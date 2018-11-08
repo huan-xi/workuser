@@ -2,6 +2,7 @@
   "enablePullDownRefresh": true,
   "usingComponents": {
     "i-load-more": "/component/load-more/index",
-    "abnor": "/component/abnor/index"
+    "abnor": "/component/abnor/index",
+    "i-notice-bar": "/component/notice-bar/index"
   }
 }

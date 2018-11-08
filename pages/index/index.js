@@ -9,11 +9,26 @@ Page({
   data: {
     positions: [],
     isLoading: false,
-    tip: ""
+    tip: "",
+    notice: '',
+    loop: false,
   },
   positionTap: function(e) {
     wx.navigateTo({
       url: `/pages/getJob/getJob?id=${e.currentTarget.id}`,
+    })
+  },
+  onLoad: function() {
+    wxRequest.get(api.getNotice, e => {
+      if (e.status == 1) {
+        var loop = false
+        if (e.msg.length > 20)
+          loop = true
+        this.setData({
+          notice: e.msg,
+          loop,
+        })
+      }
     })
   },
   /**

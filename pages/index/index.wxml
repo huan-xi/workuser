@@ -5,7 +5,18 @@
       <icon type='search' size='18' class='icon-search' />
     </view>
   </view>
-
+  <view wx:if='{{notice}}'>
+    <view wx:if="{{loop}}">
+      <i-notice-bar icon="systemprompt" closable loop>
+        {{notice}}
+      </i-notice-bar>
+    </view>
+    <view wx:else>
+      <i-notice-bar icon="systemprompt" closable>
+        {{notice}}
+      </i-notice-bar>
+    </view>
+  </view>
   <view class='jobList'>
     <view wx:for="{{positions}}" wx:key="key" wx:for-index="index" wx:for-item="item" class='jobBox' bindtap="positionTap" id="{{item.positionId}}">
       <view>
