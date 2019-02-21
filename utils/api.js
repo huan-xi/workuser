@@ -44,13 +44,13 @@ module.exports={
     return config.getDomain + `/public/getPosition?id=${id}`
   },
   //搜索
-  search: function (page, size,key) {
-    return config.getDomain + `/public/search?page=${page}&size=${size}&key=${key}`
+  getJobs: function (page, size) {
+    return config.getDomain + `/jobs/?page=${page}&size=${size}`
   },
   //提交反馈信息
   feedback: config.getDomain + "/public/feedback",
   //获取客服信息
   getServiceInfo: config.getDomain + "/public/getServiceInfo",
   //get notice
-  getNotice: config.getDomain + "/public/getUserNotice"
+  getNotice: config.getDomain + "/value/NOTICE_USER",
 }

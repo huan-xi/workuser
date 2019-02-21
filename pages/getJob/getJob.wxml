@@ -32,7 +32,7 @@
     </view>
     <view wx:if="{{positionInfo.videoSrc}}">
       <view class='descTitle'>视频描述</view>
-      <video src="{{positionInfo.videoSrc}}" class="video"></video>
+      <video src="{{positionInfo.videoSrc}}"  class="video"></video>
     </view>
     <view class='foot'>
       <button class="{{isOrder?'btn-full':''}}" bindtap='toThere'>到这里去</button>

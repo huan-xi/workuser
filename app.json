@@ -2,8 +2,7 @@
   "pages": [
     "pages/index/index",
     "pages/user/user",
-    "pages/order/order",
-    "pages/editUser/editUser",
+    "pages/update/index",
     "pages/getJob/getJob"
   ],
   "tabBar": {
@@ -14,12 +13,6 @@
         "text": "首页",
         "iconPath": "images/home.png",
         "selectedIconPath": "images/home-d.png"
-      },
-      {
-        "pagePath": "pages/order/order",
-        "text": "订单",
-        "iconPath": "images/oders.png",
-        "selectedIconPath": "images/orders-d.png"
       },
       {
         "pagePath": "pages/user/user",

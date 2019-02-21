@@ -1,9 +1,21 @@
 <view class='index'>
   <view class='header'>
-    <view class='search-view'>
-      <input class='search' bindconfirm="confirm" placeholder="搜索工种名称" />
-      <icon type='search' size='18' class='icon-search' />
+    <!--搜索-->
+    <view class="search-wrap">
+      <view class="search-location">广州</view>
+      <wxc-search class="search" radius="30" placeholder="搜索工作" _pid="{{_pid}}"></wxc-search>
+      <wxc-icon class="search-icon" color="#fff" size="42" type="search" _pid="{{_pid}}"></wxc-icon>
     </view>
+  </view>
+  <!-- 轮播 -->
+  <view class="carousel">
+    <swiper indicator-dots="{{indicatorDots}}" circular="true" autoplay="{{autoplay}}" interval="{{interval}}" duration="{{duration}}">
+      <block wx:for="{{imgUrls}}" wx:key="key">
+        <swiper-item>
+          <image src="{{item}}" class="slide-image"></image>
+        </swiper-item>
+      </block>
+    </swiper>
   </view>
   <view wx:if='{{notice}}'>
     <view wx:if="{{loop}}">
@@ -17,29 +29,47 @@
       </i-notice-bar>
     </view>
   </view>
+
   <view class='jobList'>
     <view wx:for="{{positions}}" wx:key="key" wx:for-index="index" wx:for-item="item" class='jobBox' bindtap="positionTap" id="{{item.positionId}}">
-      <view>
-        <text class='title'>{{item.type}}</text>
-        <text class='salary'>{{item.salary>=0?item.salary+item.salaryType:'见描述'}}</text>
-      </view>
-      <view>
+      <wxc-flex>
+        <view class='jbox-left'>
+          <view>
+            <wxc-flex>
+              <i-avatar i-class='avata' shape="square" src="{{item.shop.head_src}}"></i-avatar>
+              <wxc-cc class='header-name'>
+                <wxc-flex dir='top'>
+                  <view class='name'>{{item.shop.name}}</view>
+                  <i-tag color="green">个人推荐</i-tag>
+                </wxc-flex>
+              </wxc-cc>
+            </wxc-flex>
+          </view>
+          <wxc-flex dir='top'>
+            <view>{{item.job_desc}}</view>
+            <wxc-flex class='images'>
+              <image src='https://oss.shebuluo.cn/ben4rkq10ah.jpg'></image>
+              <image src='https://oss.shebuluo.cn/ben4rkq10ah.jpg'></image>
+              <image src='https://oss.shebuluo.cn/ben4rkq10ah.jpg'></image>
+              <image src='https://oss.shebuluo.cn/ben4rkq10ah.jpg'></image>
+            </wxc-flex>
+            <view>
+                <icon size='20' class='desc' type='coordinates'></icon>
+                <text class='desc'>{{item.shop.address.address}}</text>
+            </view>
+            <view>
+              <text class='desc'>发布时间</text>
+              <text class='desc'>{{item.create_time}}</text>
+            </view>
+          </wxc-flex>
+        </view>
+      </wxc-flex>
 
-        <text class='desc'>工作时间</text>
-        <text class='desc'>{{item.time}}</text>
-      </view>
-      <view>
-        <text class='desc'>招工人数</text>
-        <text class='desc'>{{item.hCount}}/{{item.count}}人</text>
-      </view>
-      <view>
-        <text class='desc'>公司名称</text>
-        <text class='desc'>{{item.company}}</text>
-      </view>
     </view>
   </view>
   <view hidden='{{positions.length}}'>
     <abnor type="DATA" title="没有职位信息,下拉试试"></abnor>
   </view>
+  <!--  -->
   <i-load-more wx:if="{{positions.length}}" tip="{{tip}}" loading="{{isLoading}}"></i-load-more>
 </view>

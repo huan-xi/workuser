@@ -12,13 +12,18 @@ Page({
     tip: "",
     notice: '',
     loop: false,
+    imgUrls: ['https://oss.shebuluo.cn/ben4rkq10ah.jpg', 'https://oss.shebuluo.cn/st93.png', 'https://oss.shebuluo.cn/ben4rkq10ah.jpg'],
+    indicatorDots: true, //是否显示面板指示点
+    autoplay: true, //是否自动切换
+    interval: 5000, //自动切换时间间隔
+    duration: 1000, //滑动动画时长
   },
   positionTap: function(e) {
     wx.navigateTo({
       url: `/pages/getJob/getJob?id=${e.currentTarget.id}`,
     })
   },
-  onLoad: function() {
+  getNitice(){
     wxRequest.get(api.getNotice, e => {
       if (e.status == 1) {
         var loop = false
@@ -31,10 +36,14 @@ Page({
       }
     })
   },
+  onLoad: function() {
+    this.getNitice()
+  },
   /**
    * 页面相关事件处理函数--监听用户下拉动作
    */
   onPullDownRefresh: function() {
+    this.getNitice()
     page = 1
     this.data.positions = []
     this.refresh(true)
@@ -60,14 +69,11 @@ Page({
   },
   refresh: function(isPull) {
     var that = this
-    wxRequest.get(api.search(page, size, key), function(e) {
+    wxRequest.get(api.getJobs(page, size), function(e) {
       if (e.status == 1) {
         if (isPull)
           wx.stopPullDownRefresh()
         total = e.msg.total
-        for (var i = 0; i < e.msg.rows.length; i++) {
-          e.msg.rows[i].time = util.formatTime(new Date(e.msg.rows[i].time))
-        }
         var positions = that.data.positions.concat(e.msg.rows)
         that.setData({
           tip: '没有更多数据了',

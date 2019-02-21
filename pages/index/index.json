@@ -3,6 +3,13 @@
   "usingComponents": {
     "i-load-more": "/component/load-more/index",
     "abnor": "/component/abnor/index",
-    "i-notice-bar": "/component/notice-bar/index"
+    "i-notice-bar": "/component/notice-bar/index",
+    "i-avatar": "/component/avatar/index",
+    "i-tag": "/component/tag/index",
+    "icon": "/component/icon/index",
+    "wxc-icon": "/component/wxc-icon/dist/index",
+    "wxc-search": "/component/wxc-search/dist/index",
+    "wxc-flex": "/component/wxc-flex/dist/index",
+    "wxc-cc": "/component/wxc-cc/dist/index"
   }
 }

@@ -1,9 +1,0 @@
-{
-      "navigationBarTitleText": "我的订单",
-      "navigationBarTextStyle": "black",
-      "enablePullDownRefresh": true,
-      "usingComponents": {
-        "i-load-more": "/component/load-more/index",
-        "abnor": "/component/abnor/index"
-      }
-}
