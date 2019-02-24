@@ -10,7 +10,7 @@
   width: 52px;
   height: 52px;
   line-height: 32px;
-  border-radius: 16px;
+  border-radius: 52px;
   font-size: 18px;
 }
 

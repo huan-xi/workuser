@@ -1,0 +1,71 @@
+/* miniprogram/pages/job/job.wxss */
+.foot{
+  position: fixed;
+  bottom: 0rpx;
+  left: 0;
+  width: 100%;
+  background-color: white;
+}
+.foot .call{
+  height: 100rpx;
+    float: right;
+    width: 300rpx;
+    color: white;
+    background: #1296db;
+    font-size: 30rpx;
+}
+.blank{
+  height: 130rpx;
+  width: 100%;
+}
+.job{
+  padding: 0 18rpx;
+}
+.header-name{
+  padding-left: 18rpx;
+}
+.name{
+    margin-bottom: 10rpx;
+}
+.header{
+  padding-top: 18rpx;
+}
+.avata{
+  margin-left: 18rpx;
+}
+.desc{
+  margin-top: 38rpx;
+}
+.images{
+  margin-top: 20rpx;
+}
+.images image{
+  width: 100%;
+}
+.info-box{
+  background-color: white
+}
+.info-box text{
+  color: gray;
+  font-size: 28rpx;
+}
+.info{
+  padding:10rpx 0; 
+  border-bottom: 1rpx solid #ECECEC;
+}
+.info-box{
+  padding: 0 30rpx;
+}
+.detail{
+  padding: 20rpx;
+  color: #666666;
+  font-size: 32rpx;
+  background: white
+}
+.foot-left{
+  height: 100rpx;
+}
+.icon-btn{
+  width: 150rpx;
+  font-size: 22rpx;
+}

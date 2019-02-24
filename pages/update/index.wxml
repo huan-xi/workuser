@@ -1,6 +1,6 @@
 <i-panel title="选择您的工种">
   <view class="list">
-    <view wx:for="{{types}}" wx:key="key" bindtap='typeTap' data-id='{{types[index].typeId}}' class="{{types[index].state?'select':''}}">{{types[index].typeName}}</view>
+    <view wx:for="{{types}}" wx:key="key"  wx:for-item="item"  bindtap='typeTap' data-id='{{index}}' class="{{types[index].state?'select':''}}">{{types[index].typeName}}</view>
   </view>
 </i-panel>
 <i-panel title="修改您的信息">
@@ -9,11 +9,13 @@
     <i-input value="{{ user.phone }}" type="number" bind:change='phoneInputChange' title="联系电话" placeholder="请输入手机号" />
   </i-cell-group>
 </i-panel>
+<!-- 
 <i-panel title="上传身份证正面信息(可不填)">
   <view class='idCard'>
     <image class="idCard" bindtap='imageTap' src='{{imageSrc}}'></image>
   </view>
 </i-panel>
-<view class='sava'>
-  <i-button bind:click="formSubmit" type="primary" shape="circle">保存信息</i-button>
+ -->
+<view class='save'>
+  <i-button open-type='getUserInfo' bindgetuserinfo="formSubmit" type="primary" shape="circle">保存信息</i-button>
 </view>

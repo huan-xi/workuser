@@ -1,0 +1,83 @@
+<view class='job'>
+  <view class='header'>
+    <wxc-flex>
+      <i-avatar i-class='avata' shape="square" src="{{job.shop.head_src}}"></i-avatar>
+      <wxc-cc class='header-name'>
+        <wxc-flex dir='top'>
+          <view class='name'>{{job.shop.name}}</view>
+          <i-tag color="green">个人推荐</i-tag>
+        </wxc-flex>
+      </wxc-cc>
+    </wxc-flex>
+  </view>
+  <view class='desc'>
+    <view class='detail'>{{job.job_desc}}</view>
+    <view class='images'>
+      <view class='images'>
+        <image  wx:for="{{job.images}}" wx:key="key" wx:for-index="index" wx:for-item="item"  src='{{item.src}}'></image>
+      </view>
+    </view>
+    <view class='info-box'>
+      <view class='info'>
+        <text>联系人：</text>
+        <text>{{job.shop.contacts}}</text>
+      </view>
+      <view class='info'>
+        <text>电话：</text>
+        <text>{{job.shop.phone}}</text>
+      </view>
+      <view class='info'>
+        <text>地址：</text>
+        <text>{{job.shop.address.address}}</text>
+      </view>
+       <view class='info'>
+        <text>详细地址描述：</text>
+        <text>{{job.shop.address.address_desc}}</text>
+      </view>
+    </view>
+    <view class='blank'></view>
+    <view class='foot'>
+      <wxc-flex>
+        <view class='foot-left'>
+          <wxc-flex>
+            <view class='icon-btn' bindtap='toThere'>
+              <cc>
+                <view>
+                  <wxc-flex dir='top'>
+                    <icon type='coordinates' size='22'></icon>
+                    <text>地图</text>
+                  </wxc-flex>
+                </view>
+              </cc>
+            </view>
+            <view class='icon-btn' bindtap='goodJob'>
+              <cc>
+                <view>
+                  <wxc-flex dir='top'>
+                    <icon type='praise' size='22'></icon>
+                    <text>点赞</text>
+                  </wxc-flex>
+                </view>
+              </cc>
+            </view>
+            <button open-type="share"  class='icon-btn none-btn' bindtap='share'>
+              <cc>
+                <view>
+                  <wxc-flex dir='top'>
+                    <icon type='share' size='22'></icon>
+                    <text>分享</text>
+                  </wxc-flex>
+                </view>
+              </cc>
+            </button>
+          </wxc-flex>
+        </view>
+        <view class='call' bindtap='call'>
+          <cc>
+            <text>拨打电话</text>
+          </cc>
+        </view>
+      </wxc-flex>
+    </view>
+  </view>
+</view>

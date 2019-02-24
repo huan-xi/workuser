@@ -3,7 +3,7 @@
     "pages/index/index",
     "pages/user/user",
     "pages/update/index",
-    "pages/getJob/getJob"
+    "pages/jobinfo/index"
   ],
   "tabBar": {
     "selectedColor": "#1296db",

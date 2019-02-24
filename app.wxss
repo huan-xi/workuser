@@ -4,3 +4,14 @@ page{
 .btn{
   background-color: #1296db;
 }
+.none-btn{
+  margin: 0;
+  padding: 0;
+  text-align: left;
+  font-size: 32rpx;
+  background-color: white;
+  line-height: inherit
+}
+.none-btn::after{
+  border: none;
+}

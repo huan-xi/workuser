@@ -7,59 +7,58 @@ Page({
    */
   data: {
     user: {},
-    types:[]
+    types:[],
+    
   },
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad: function(options) {
-    if (getApp().globalData.token){
       this.refresh()
-    }
   },
-  tosaveTap: function(e) {
-    wx.navigateTo({
-      url: '/pages/editUser/editUser',
-    })
-  },
-  retryTap:function(e){
-    this.refresh()
-  },
-  refresh:function(isPull=false){
-    if(!isPull)
+  refresh:function(hiddle=false){
+    if(!hiddle)
     wx.showLoading({
       title: '正在获取信息',
     })
     wxRequest.get(api.getInfo, e => {
-      if(isPull)
+      if(hiddle)
       wx.stopPullDownRefresh()
       wx.hideLoading()
       if(e.status==1){
         var user = e.msg
-        var types = []
-        if (user.type&&user.type.length > 0)
-          types = types.concat(user.type.split('|'))
-        if (user.valid == "2") {
-          user.valid = '已通过认证'
-        } else if (user.valid == "1") {
-          user.valid = '待验证'
-        } else {
-          user.valid = '未上传'
-        }
+        var info = []
+        if (user.info && user.info.length > 0)
+          info = info.concat(user.info.split('|'))
         wx.setStorageSync('user', user);
         this.setData({
           user: user,
-          types: types
+          types: info
         })
       }else{
-        //获取失败
+      /*  //获取失败
         wx.showModal({
           title: '警告',
           content: '获取数据失败，请重新登入再试',
           showCancel:false
         })
         wx.setStorageSync("Token", "")
-        getApp().globalData.token=''
+        getApp().globalData.token=''*/
+      }
+    })
+  },
+  call(){
+    wxRequest.get(api.getPhone,res=>{
+      if(res.status==1){
+        wx.makePhoneCall({
+          phoneNumber: res.msg,
+        })
+      }else{
+        wx.showModal({
+          title: '提示',
+          content: '没有客服信息',
+          showCancel:false
+        })
       }
     })
   },
@@ -94,7 +93,7 @@ Page({
   },
   toEdit: function (e) {
     wx.navigateTo({
-      url: '/pages/editUser/editUser',
+      url: '/pages/update/index',
     })
   },
   /**
@@ -108,9 +107,9 @@ Page({
    */
   onShow: function() {
     var that=this;
-    auth.isLogin(() => {
-        that.refresh()
-    });
+    //auth.isLogin(() => {
+      //  that.refresh()
+    //});
     //刷新数据(是否更新)    
     wx.getStorage({
       key: 'isChange',
@@ -123,5 +122,13 @@ Page({
       },
     })
   },
-  
+  onShareAppMessage: function (res) {
+    if (res.from === 'button') {
+      // 来自页面内转发按钮
+    }
+    return {
+      title: "同城找工作小程序",
+      path: '/pages/index/index'
+    }
+  },
 })

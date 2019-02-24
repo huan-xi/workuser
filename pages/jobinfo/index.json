@@ -1,0 +1,12 @@
+{
+  "enablePullDownRefresh": true,
+  "navigationBarTitleText": "职位详细信息",
+  "navigationBarTextStyle": "black",
+  "usingComponents": {
+    "cc": "/component/wxc-cc/dist/index",
+    "i-avatar": "/component/avatar/index",
+    "icon": "/component/icon/index",
+    "wxc-flex": "/component/wxc-flex/dist/index",
+    "i-tag": "/component/tag/index"
+  }
+}

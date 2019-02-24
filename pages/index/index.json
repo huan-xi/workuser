@@ -1,4 +1,6 @@
 {
+    "navigationBarTitleText": "啦啦用户端",
+    "navigationBarTextStyle": "black",
   "enablePullDownRefresh": true,
   "usingComponents": {
     "i-load-more": "/component/load-more/index",
@@ -7,6 +9,7 @@
     "i-avatar": "/component/avatar/index",
     "i-tag": "/component/tag/index",
     "icon": "/component/icon/index",
+    "message": "/component/message/index",
     "wxc-icon": "/component/wxc-icon/dist/index",
     "wxc-search": "/component/wxc-search/dist/index",
     "wxc-flex": "/component/wxc-flex/dist/index",

@@ -9,24 +9,24 @@ Page({
   data: {
     user: {},
     types: [],
-    imageSrc: '/images/idCard.png'
+    //imageSrc: '/images/idCard.png'
   },
   /**
    * 生命周期函数--监听页面加载
    */
-  onLoad: function(options) {
+  onLoad: function (options) {
     var that = this
     wx.getStorage({
       key: 'user',
-      success: function(res) {
+      success: function (res) {
         that.setData({
           user: res.data
         })
-        that.showTypes(res.data.type)
+        that.showTypes(res.data.info)
       },
     })
   },
-  showTypes: function(userType) {
+  showTypes: function (userType) {
     var that = this
     wxRequest.get(api.getTypes, e => {
       if (e.status == 1) {
@@ -41,13 +41,13 @@ Page({
           if (userType)
             for (var j = 0; j < userType.length; j++) {
               //判断i是否在user中
-              if (userType[j] == typesD[i].sValue)
+              if (userType[j] == typesD[i].s_value)
                 state = 1
             }
           types.push({
             typeId: typesD[i].systemId,
             state: state,
-            typeName: typesD[i].sValue
+            typeName: typesD[i].s_value
           })
         }
         that.setData({
@@ -59,41 +59,33 @@ Page({
   /**
    * 生命周期函数--监听页面初次渲染完成
    */
-  onReady: function() {
+  onReady: function () {
 
   },
-  typeTap: function(e) {
-    var id = e.target.dataset.id
-    var types = this.data.types
-    for (var i = 0; i < types.length; i++) {
-      if (id == types[i].typeId) {
-        if (types[i].state == 1)
-          types[i].state = 0
-        else
-          types[i].state = 1
-        break
-      }
-    }
+  typeTap: function (e) {
+    let i = e.target.dataset.id
+    let types = this.data.types
+    types[i].state = !types[i].state
     this.setData({
-      types: types
+      types,
     })
   },
   //双向绑定
-  nameInputChange: function(e) {
+  nameInputChange: function (e) {
     var user = this.data.user
     user.name = e.detail.detail.value
     this.setData({
       user
     })
   },
-  phoneInputChange: function(e) {
+  phoneInputChange: function (e) {
     var user = this.data.user
     user.phone = e.detail.detail.value
     this.setData({
       user
     })
   },
-  submit: function(val) {
+  submit: function (val) {
     if (val.name.length < 1) {
       wx.showModal({
         title: '提示',
@@ -121,9 +113,9 @@ Page({
     types = types.join("|")
     wxRequest.post(api.editInfo, {
       phone: val.phone,
-      types: types,
+      types, types,
       name: val.name,
-      imagesrc:val.imagesrc
+      head_src: val.head_src
     }, e => {
       wx.hideLoading();
       if (e.status == 1) {
@@ -143,10 +135,10 @@ Page({
       }
     });
   },
-  imageTap: function() {
+  imageTap: function () {
     var that = this
     wx.chooseImage({
-      success: function(res) {
+      success: function (res) {
         that.setData({
           imageSrc: res.tempFilePaths
         })
@@ -154,13 +146,14 @@ Page({
     })
   },
   //提交信息
-  formSubmit: function(e) {
+  formSubmit: function (e) {
     var val = this.data.user
     var that = this
-    val.imagesrc=""
-    var imagesrc = this.data.imageSrc[0]
+    val.head_src = e.detail.userInfo.avatarUrl
+    // val.imagesrc=""
+    // var imagesrc = this.data.imageSrc[0]
     //如果有图片上传身份证信息
-    if (imagesrc.search("//tmp") != -1) {
+    /*if (imagesrc.search("//tmp") != -1) {
       wx.showLoading({
         title: '正在上传图片',
       })
@@ -184,7 +177,7 @@ Page({
           uptokenURL: api.uptoken,
       })
       return;
-    }
+    }*/
     that.submit(val);
   }
 })

@@ -1,25 +1,33 @@
 /* pages/user/user.wxss */
-.type{
+
+.type {
   margin-top: 50rpx;
 }
- .title{
+
+.title {
   text-align: center;
 }
-.list{
-  padding:0 30rpx;
+
+.list {
+  padding: 10rpx 30rpx;
+  border-radius: 30rpx;
+  margin: 0 15rpx;
 }
-.select{
+
+.select {
   border: solid 1rpx #1296db !important;
   color: #1296db !important;
 }
-.list view{
-   float: left;
+
+.list view {
+  float: left;
   border: solid 1rpx black;
   padding: 5rpx 15rpx;
   margin: 10rpx;
   font-size: 26rpx;
   border-radius: 10rpx;
 }
+
 .list:after {
   content: ".";
   display: block;
@@ -28,15 +36,17 @@
   visibility: hidden;
 }
 
-.idCard image{
+.idCard image {
   width: 100%;
   height: 300rpx;
-  margin:50rpx 0; 
+  margin: 50rpx 0;
 }
-.idCard{
+
+.idCard {
   padding-left: 20rpx;
   padding-right: 60rpx;
 }
-.sava{
+
+.save {
   margin-top: 150rpx;
 }

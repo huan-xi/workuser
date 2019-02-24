@@ -3,20 +3,23 @@
     <!--搜索-->
     <view class="search-wrap">
       <view class="search-location">广州</view>
-      <wxc-search class="search" radius="30" placeholder="搜索工作" _pid="{{_pid}}"></wxc-search>
-      <wxc-icon class="search-icon" color="#fff" size="42" type="search" _pid="{{_pid}}"></wxc-icon>
+      <wxc-search class="search" bind:input="searchInput" bind:confirm='search' radius="30" placeholder="搜索工作" _pid="{{_pid}}"></wxc-search>
+      <view bindtap='search'>
+        <wxc-icon class="search-icon" color="#fff" size="42" type="search" _pid="{{_pid}}"></wxc-icon>
+      </view>
     </view>
   </view>
   <!-- 轮播 -->
   <view class="carousel">
     <swiper indicator-dots="{{indicatorDots}}" circular="true" autoplay="{{autoplay}}" interval="{{interval}}" duration="{{duration}}">
-      <block wx:for="{{imgUrls}}" wx:key="key">
+      <block wx:for="{{images}}" wx:key="key">
         <swiper-item>
-          <image src="{{item}}" class="slide-image"></image>
+          <image src="{{item.image}}" class="slide-image"></image>
         </swiper-item>
       </block>
     </swiper>
   </view>
+  <!-- 公告 -->
   <view wx:if='{{notice}}'>
     <view wx:if="{{loop}}">
       <i-notice-bar icon="systemprompt" closable loop>
@@ -29,13 +32,15 @@
       </i-notice-bar>
     </view>
   </view>
-
+  <!-- 工作列表 -->
   <view class='jobList'>
-    <view wx:for="{{positions}}" wx:key="key" wx:for-index="index" wx:for-item="item" class='jobBox' bindtap="positionTap" id="{{item.positionId}}">
-      <wxc-flex>
+    <view wx:for="{{positions}}" wx:key="key" wx:for-index="index" wx:for-item="item" class='jobBox' id="{{item.job_id}}">
+      <wxc-flex id="{{item.job_id}}" bindtap="positionTap">
         <view class='jbox-left'>
-          <view>
-            <wxc-flex>
+          <view class='name'>{{item.shop.name}}</view>
+          <!-- 
+          <view >
+            <wxc-flex  id="{{item.job_id}}" bindtap="positionTap">
               <i-avatar i-class='avata' shape="square" src="{{item.shop.head_src}}"></i-avatar>
               <wxc-cc class='header-name'>
                 <wxc-flex dir='top'>
@@ -45,17 +50,15 @@
               </wxc-cc>
             </wxc-flex>
           </view>
+           -->
           <wxc-flex dir='top'>
-            <view>{{item.job_desc}}</view>
+            <view class='detail' id="{{item.job_id}}" bindtap="positionTap">{{item.job_desc}}</view>
             <wxc-flex class='images'>
-              <image src='https://oss.shebuluo.cn/ben4rkq10ah.jpg'></image>
-              <image src='https://oss.shebuluo.cn/ben4rkq10ah.jpg'></image>
-              <image src='https://oss.shebuluo.cn/ben4rkq10ah.jpg'></image>
-              <image src='https://oss.shebuluo.cn/ben4rkq10ah.jpg'></image>
+              <image hover-stop-propagation='true' wx:for="{{item.images}}" data-index='{{i}}' id="{{index}}" wx:key="key" catchtouchstart='prePic' wx:for-index="i" wx:for-item="item" src='{{item.src}}'></image>
             </wxc-flex>
             <view>
-                <icon size='20' class='desc' type='coordinates'></icon>
-                <text class='desc'>{{item.shop.address.address}}</text>
+              <icon size='20' class='desc' type='coordinates'></icon>
+              <text class='desc'>{{item.shop.address.address}}</text>
             </view>
             <view>
               <text class='desc'>发布时间</text>
@@ -67,9 +70,12 @@
 
     </view>
   </view>
+  <!-- 异常流 -->
   <view hidden='{{positions.length}}'>
-    <abnor type="DATA" title="没有职位信息,下拉试试"></abnor>
+    <abnor type="DATA" title="没有符合条件的职位信息,下拉试试"></abnor>
   </view>
-  <!--  -->
+  <!-- 页底提示 -->
   <i-load-more wx:if="{{positions.length}}" tip="{{tip}}" loading="{{isLoading}}"></i-load-more>
+  <!-- 全局消息提示 -->
+  <message id="message" />
 </view>
