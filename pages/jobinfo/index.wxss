@@ -41,6 +41,7 @@
 }
 .images image{
   width: 100%;
+  height: 1080rpx;
 }
 .info-box{
   background-color: white
@@ -68,4 +69,8 @@
 .icon-btn{
   width: 150rpx;
   font-size: 22rpx;
+}
+.tips text{
+  font-size: 24rpx;
+  color: #1296db;
 }

@@ -80,17 +80,6 @@ Page({
     getApp().globalData.token = ''
     wx.clearStorageSync()
   },
-  logout: function (e) {
-    var that = this
-    wx.showModal({
-      title: '提示',
-      content: '确定要退出吗？',
-      success: e => {
-        if (e.confirm)
-          that.exit()
-      }
-    })
-  },
   toEdit: function (e) {
     wx.navigateTo({
       url: '/pages/update/index',
@@ -107,9 +96,9 @@ Page({
    */
   onShow: function() {
     var that=this;
-    //auth.isLogin(() => {
-      //  that.refresh()
-    //});
+    auth.isLogin(() => {
+        that.refresh()
+    });
     //刷新数据(是否更新)    
     wx.getStorage({
       key: 'isChange',

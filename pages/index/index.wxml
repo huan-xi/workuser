@@ -52,9 +52,9 @@
           </view>
            -->
           <wxc-flex dir='top'>
-            <view class='detail' id="{{item.job_id}}" bindtap="positionTap">{{item.job_desc}}</view>
+            <view class='detail'>{{item.job_desc}}</view>
             <wxc-flex class='images'>
-              <image hover-stop-propagation='true' wx:for="{{item.images}}" data-index='{{i}}' id="{{index}}" wx:key="key" catchtouchstart='prePic' wx:for-index="i" wx:for-item="item" src='{{item.src}}'></image>
+              <image hover-stop-propagation='true' wx:for="{{item.images}}" data-index='{{i}}' id="{{index}}" wx:key="key" catchtap='prePic' wx:for-index="i" wx:for-item="item" src='{{item.src}}'></image>
             </wxc-flex>
             <view>
               <icon size='20' class='desc' type='coordinates'></icon>

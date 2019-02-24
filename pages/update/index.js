@@ -22,8 +22,10 @@ Page({
         that.setData({
           user: res.data
         })
-        that.showTypes(res.data.info)
       },
+      complete:function(){
+        that.showTypes(that.data.user.info)
+      }
     })
   },
   showTypes: function (userType) {

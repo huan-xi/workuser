@@ -1,7 +1,9 @@
 var api = require('../../utils/api.js');
 var wxRequest = require('../../utils/wxRequest.js')
 var util = require('../../utils/util.js')
-const { $Message } = require('../../component/base/index');
+const {
+  $Message
+} = require('../../component/base/index');
 var page = 1
 var size = 5
 var total = 0
@@ -18,11 +20,22 @@ Page({
     autoplay: true, //是否自动切换
     interval: 5000, //自动切换时间间隔
     duration: 1000, //滑动动画时长
+    link: false
   },
   positionTap: function(e) {
+    let that = this
+    that.setData({
+      link: false
+    }, function() {
       wx.navigateTo({
         url: `/pages/jobinfo/index?id=${e.currentTarget.id}`,
+        complete: function() {
+          that.setData({
+            link: true
+          })
+        }
       })
+    })
   },
   getNotice() {
     wxRequest.get(api.getNotice, e => {
@@ -37,7 +50,7 @@ Page({
       }
     })
   },
-  search(e){
+  search(e) {
     page = 1
     wx.showLoading({
       title: '正在搜索',
@@ -45,25 +58,24 @@ Page({
     this.data.positions = []
     this.refresh()
   },
-  searchInput(e){
-   key=e.detail.value
+  searchInput(e) {
+    key = e.detail.value
   },
-  prePic(e){
+  prePic(e) {
     let index = e.target.id
     let imageIndex = e.target.dataset.index
     let imgs = this.data.positions[index].images
-    let img_src=[]
-    for(let i=0;i<imgs.length;i++)
-    {
+    let img_src = []
+    for (let i = 0; i < imgs.length; i++) {
       img_src.push(imgs[i].src)
     }
-   wx.previewImage({
-     urls: img_src,
-     current:img_src[imageIndex]
-   })
+    wx.previewImage({
+      urls: img_src,
+      current: img_src[imageIndex]
+    })
   },
   getBanners() {
-    let that =this
+    let that = this
     wxRequest.get(api.getBanners, function(e) {
       let images = []
       if (e.status == 1) {
@@ -114,15 +126,15 @@ Page({
   },
   refresh: function(isPull) {
     var that = this
-    wxRequest.get(api.getJobs(page, size,key), function(e) {
+    wxRequest.get(api.getJobs(page, size, key), function(e) {
       if (e.status == 1) {
         if (isPull)
           wx.stopPullDownRefresh()
-          wx.hideLoading()
+        wx.hideLoading()
         total = e.msg.total
-        if(page==1){
+        if (page == 1) {
           $Message({
-            content: '已找到'+total+'条工作信息',
+            content: '已找到' + total + '条工作信息',
           })
         }
         var positions = that.data.positions.concat(e.msg.rows)

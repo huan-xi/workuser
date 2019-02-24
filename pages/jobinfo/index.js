@@ -14,6 +14,18 @@ Page({
       phoneNumber: this.data.job.shop.phone,
     })
   },
+  prePic:function(e){
+    let index = e.target.id
+    let images = this.data.job.images
+    let img_src = []
+    for (let i = 0; i < images.length; i++) {
+      img_src.push(images[i].src)
+    }
+    wx.previewImage({
+      urls: img_src,
+      current: img_src[index]
+    })
+  },
   toThere: function(e) {
     let address = this.data.job.shop.address
     wx.openLocation({
@@ -45,7 +57,7 @@ Page({
     job_id = options.id
     this.refresh()
   },
-  refresh() {
+  refresh(hiddle) {
     wx.showLoading({
       title: '正在加载数据',
     })
@@ -53,6 +65,7 @@ Page({
     wx.hideLoading();
     wxRequest.get(api.getJobInfo(job_id), function(e) {
       wx.hideLoading();
+      if (hiddle) wx.stopPullDownRefresh()
       if (e.status == 1) {
         that.setData({
           job: e.msg
@@ -66,7 +79,7 @@ Page({
    * 页面相关事件处理函数--监听用户下拉动作
    */
   onPullDownRefresh: function() {
-    this.refresh()
+    this.refresh(true)
   },
   onShareAppMessage: function (res) {
     if (res.from === 'button') {

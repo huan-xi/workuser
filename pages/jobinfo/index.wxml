@@ -14,7 +14,7 @@
     <view class='detail'>{{job.job_desc}}</view>
     <view class='images'>
       <view class='images'>
-        <image  wx:for="{{job.images}}" wx:key="key" wx:for-index="index" wx:for-item="item"  src='{{item.src}}'></image>
+        <image  wx:for="{{job.images}}" wx:key="key" wx:for-index="index" wx:for-item="item" bindtap='prePic' id='{{index}}' src='{{item.src}}'></image>
       </view>
     </view>
     <view class='info-box'>
@@ -33,6 +33,9 @@
        <view class='info'>
         <text>详细地址描述：</text>
         <text>{{job.shop.address.address_desc}}</text>
+      </view>
+       <view class='info tips'>
+        <text>温馨提示：平台所有信息，平台只负责发布、展示与平台本身无关，平台不负任何责任</text>
       </view>
     </view>
     <view class='blank'></view>
